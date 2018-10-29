@@ -1,0 +1,33 @@
+Topic,Person1,Person2,Person3,Person4,Person5,Person6,...
+Representation learning
+Feature transformations
+Kernel engineering
+Linear regression
+Multilayer perceptron
+Linear least squares
+Maximum likelihood estimation
+Bias/Variance trade-off
+Model capacity
+Under-fitting and over-fitting
+Crossvalidation
+Ridge regression (L2 regularization)
+Lasso (L1 regularization)
+Activation function
+Rectified linear unit
+Backpropagation
+Chain rule of derivatives
+Computational graphs
+Generalization error
+Keras
+Tensorflow/Theano
+Dataset augmentation
+Dropout
+Early stopping
+Ensemble methods
+Huber loss
+Stochastic Gradient Descent
+Exploding/Vanishing gradient problem
+Learning with momentum
+Learning rate
+Precision/Recall
+Tensorboard

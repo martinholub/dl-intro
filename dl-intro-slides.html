@@ -1,0 +1,1847 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>DL-intro-slides</title>
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <!-- <link rel="stylesheet" href="css/theme/black.css"> -->
+        <link rel="stylesheet" href="css/theme/night.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <!-- Manual style tweaks -->
+        <style>
+            /* Columns */
+            /* ref: https://stackoverflow.com/questions/30861845/how-to-use-two-column-layout-with-reveal-js#answer-44392145 */
+            .columns {
+                display: flex;
+            }
+            .col {
+                flex: 1;
+            }
+
+            /* Colours */
+            .text-red {
+                color: #f00;
+            }
+            .text-green {
+                color: #0f0;
+            }
+            .text-yellow {
+                color: #ff0;
+            }
+            .text-blue {
+                color: #00f;
+            }
+
+            .half-size {
+                font-size: 0.5em !important;
+            }
+        </style>
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration --></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Everything-You-Always-Wanted-to-Know-About">Everything You Always Wanted to Know About<a class="anchor-link" href="#Everything-You-Always-Wanted-to-Know-About">&#182;</a></h3><h1 id="Deep-Learning">Deep Learning<a class="anchor-link" href="#Deep-Learning">&#182;</a></h1><hr>
+<p>Martin Holub, 05/07/2018</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><!--![](assets/say-deep-learning-one-more-time.jpg)-->
+<img src="assets/say-deep-learning-one-more-time.jpg" style="width: 350px;" align="center;"/></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://medium.com/@mjspeck/presenting-code-using-jupyter-notebook-slides-a8a3c3b59d67">how to slides</a>
+<a href="https://medium.com/learning-machine-learning/present-your-data-science-projects-with-jupyter-slides-75f20735eb0f">how to slides 2</a></p>
+<p>In this presentation I will talk about Deep Learning. I will assume some previous knowledge on your part, but will still quickly refresh some basic concepts.</p>
+<p>I am no expert on the field. It is wast and moving quickly. Moreover we have just about an hour for the presentation. Despite that, I believe that it encapsulates the most important aspects and you shall benefit from it.</p>
+<p>My main focus is on <strong>practical aspects.</strong> Here I clearly see a value of just hearing about them as compared to understanding the concepts, which is also immensely useful, but clearly beyond the time we have here.</p>
+<p>You will learn about:</p>
+<ul>
+<li>How does DL differ from ML</li>
+<li>Why is DL so succesfull after getting out of favor decades ago?</li>
+<li>Basics of Machine Learning:<ul>
+<li>features, regularization, overfitting</li>
+<li>bias/variance</li>
+<li>linear regression</li>
+<li>kernel engineering</li>
+</ul>
+</li>
+</ul>
+<p><strong> Ask!, Ask!, Ask! </strong></p>
+<p>Also: Print the google document on applying ML.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Landscape-of-AI">Landscape of AI<a class="anchor-link" href="#Landscape-of-AI">&#182;</a></h1><table>
+<thead><tr>
+<th style="text-align:center"><a href=""></a></th>
+<th style="text-align:center"><a href=""></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="assets/ai_landscape.png" alt=""></td>
+<td style="text-align:center"><img src="assets/ai_flowchart.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p><strong>Artificial Intelligence</strong>: The study of <em>intelligent agents</em>, systems that perceive their environment and take actions that maximize their chance of successfully achieving their goals</p>
+</li>
+<li><p><strong>Machine Learning</strong>: A computer program is said to <em>learn from experience</em> E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E.</p>
+</li>
+<li><p><strong>Representation Learning</strong> (Feature Learning): Set of techniques that allows a system to automatically <em>discover the representations</em> needed for learning.</p>
+</li>
+<li><p><strong>Deep Learning</strong> (Hierarchical Learning): Class of machine learning algorithms that learn <em>multiple levels of representations</em> that correspond to <em>different levels of abstraction</em>; the levels form a hierarchy of concepts.</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In early days of <em>artificial intelligence</em>, the field reaped successes on problems that can be described by set of formal mathematical rules. These rules were usually hard-coded.</p>
+<p>This of course was significant limitation and it was necessary for the AI systems to extract patterns from raw data. The field of <em>machine learning</em> was born. In classical machine learning, we decide what will be the input to the algorithm. I.e. we engineer the features. Consider an example of ceaserian delivery. The AI system can recommend this procedure, but it does not do so by examining the patient directly, instead it is fed by several pieces of relevant information about the patient, usually designed by the doctor. Each peace of this information is called <em>featrue</em> and it is an <em>representation</em> of the patient. The machine learning algorithm is heavily dependent on the choice of representations. As an example from everyday life, compare doing arithmetics on Arabic numbers versus Roman numbers. Clearly one representation lends itself much better for this task. Many AI tasks can be solved by engineering the right set of features.</p>
+<p>However, for many tasks it is difficult to know which features should be extracted. One solution to this problem is to use machine learning not only to discover the mapping from features to output but also the representations themselves. Enter the world of <em>representation learning</em>.</p>
+<p>Whereas some features are extracted readily, others, usually high-level abstract features become very difficult to disentagle from the raw input data.</p>
+<p><em>Deep Learning</em> addresses this by stacking layers on neurons and henceforth  constructing features in hierichical fashion from simpler features</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Features">Features<a class="anchor-link" href="#Features">&#182;</a></h2><table>
+<thead><tr>
+<th style="text-align:center"><a href=""></a></th>
+<th style="text-align:center"><a href=""></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="assets/features1.png" alt="Example of different representations"></td>
+<td style="text-align:center"><img src="assets/representations.png" alt="Building abstract features"></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Expert-engineered-features-are-not-enough">Expert engineered features are not enough<a class="anchor-link" href="#Expert-engineered-features-are-not-enough">&#182;</a></h3><p><img src="assets/sift_paper.png" style="width: 400px;"/>
+<img src="assets/imagenet.png" style="width: 500px;"/></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In past, features were engineered by domain experts. This worked quite well, but it took whole community tens of years before they came up with some that gave decent results. The features were often highly domain specific and not easily transferable.</p>
+<p>On the other hand, neural nets have managed to learn features that enabled the models to signficantly surpass the performance of previous approaches.</p>
+<p>The features are beyond what humans could come up with, make sense when visualized and are transferable between domains. Domain adaptation does not require domain specific-knowledge (some DL softEng skill needed though).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Mo'-Data,-Mo'-GPUs">Mo' Data, Mo' GPUs<a class="anchor-link" href="#Mo'-Data,-Mo'-GPUs">&#182;</a></h2><blockquote><p>It is true that some skill is required to get good performance from a deep learning algorithm. Fortunately, the amount of skill required reduces as the amount of training data increases. The learning algorithms reaching human performance on complex tasks today are nearly identical to the learning algorithms that struggled to solve toy problems in the 1980s [...] The <strong>most important new development is that today we can provide these algorithms with the resources they need to succeed</strong>.</p>
+<p>Another key reason that neural networks are wildly successful today after enjoying comparatively little success since the 1980s is that we have the computational resources to run <strong>much larger models today</strong>.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>More computaitonal pwoer, allows us to train bigger models on bigger datasets. This in turns allows for more abstract and complex feeatures to be learned. It is easier to construct such features in hiararchical fashion, i.e. by more depth.</p>
+<p>Apart from this, it is worth noting that couple of engineering tricks make the training easier. This includes replacing mean squared error with cross-entropy loss or using ReLUs as activation units.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><!--![](assets/its_the_data.jpg)-->
+<img src="assets/its_the_data.jpg" style="width: 250px;"/></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:center">Bigger Models</th>
+<th style="text-align:center">More Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="assets/network_size.png" style="width: 400px;"/></td>
+<td style="text-align:center"><img src="assets/dataset_size.png" style="width: 400px;"/></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>As of 2016, the rule of thumb is that supervised deep learning algorithm will generally achieve <strong>acceptable performance with around 5000 examples per category</strong> and will <strong>match or exceed human performance</strong> when trained on dataset with at leas <strong>10 million labeled examples</strong>.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Machine-Learning">Machine Learning<a class="anchor-link" href="#Machine-Learning">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="assets/ai_flowchart.png" style="width: 300px;"/></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We start our journey with brief introduction to Machine Learning. Recall that DL differs mainly in how we obtain features, else the challenges and critical aspects are very alike.</p>
+<p>I begin with definition of ML. To make it more concrete, I immediatelly follow up with an example.</p>
+<p>I mostly talk about supervised learning, as unsupervised is more rare. Unsupervised is usually sth along the lines of clustering (k Means), dimensionality reduction (PCA, ICA, Autoencoders), or generative models (GANs, Deep belief Nets). Semisupervised Learning is attractive is limited amount of labeled data.</p>
+<ul>
+<li>Reinforcement learning is not that different from unsupervised but there we at least have clear objective to aim for.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>A computer program is said to learn from <em>experience</em> E with respect to some class of <em>tasks</em> T and <em>performance measure</em> P if its performance at tasks in T, as measured by P, improves with experience E.</p>
+</blockquote>
+<p>$T$:</p>
+<ul>
+<li><strong>Task</strong> is how ML system should process a <strong>collection of features</strong>, i.e. <strong>example</strong> $\boldsymbol{x} \in \mathbb{R}^n$</li>
+<li>classification (w/ or w/o missing values), regression, transcription, translation, anomaly detection, imputation, denoising, density estimation, ...</li>
+</ul>
+<p>$P$:</p>
+<ul>
+<li>usually tied to the $T$</li>
+<li>accuracy (classification, ...), error (regression, ...), log-likelihood (density estimation, ...)</li>
+</ul>
+<p>$E$:</p>
+<ul>
+<li>dataset (w/ or w/o labels)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Example:-Linear-Regression">Example: Linear Regression<a class="anchor-link" href="#Example:-Linear-Regression">&#182;</a></h2><p>$$\hat{y} = \boldsymbol{w}^T\boldsymbol{x}$$</p>
+<p>$T$: predict $y$ from $\boldsymbol{x}$</p>
+<p>$P$: $MSE_{test} = \frac{1}{m}\sum_i^{}(\hat{y}_i^{(test)}-y_i^{(test)})^2$</p>
+<p>$E$: $(\boldsymbol{X}^{(train)}, \boldsymbol{y}^{(train)})$</p>
+<p>Need: ML algorithm that improves weights $\boldsymbol{w}$ in a way that reduces $MSE_{test}$ given the training examples.</p>
+<p>Solution, minimize $MSE_{train}$:
+$$\nabla_{\boldsymbol{w}} MSE_{train} = 0$$
+$$ ... $$
+$$\boldsymbol{w} = ({\boldsymbol{X}^{(train)}}^T\boldsymbol{X}^{(train)})^{-1}{\boldsymbol{X}^{(train)}}^T\boldsymbol{y}^{(train)}$$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To make this easier to understand, let's look at example of simple machine learning model - linear regression. Given training samples and labels, we want to assign labels to unseen samples. The label is predicted as linear combination of features.</p>
+<p>We fit the weights on training data and measure the performance with mean squared error on test data.</p>
+<p>It can be shown that minimizing MSE is equivalent to maximazing log-likelihood. Thus we have obtained ML estimate.</p>
+<p><img src="assets/linreg.png" style="width: 400px;"/></p>
+<h4 id="Implicit:-Regularizing-Matrix-Inversion">Implicit: Regularizing Matrix Inversion<a class="anchor-link" href="#Implicit:-Regularizing-Matrix-Inversion">&#182;</a></h4><p>$$ \mathbf{X}^{-1} = \mathbf{X}^T\mathbf{X} + \alpha\mathbf{I} $$</p>
+<hr>
+<p>Engineering suitable feature transformation function can allow simple model to generalize well on the data even if it is not linear. Feature/Kernel Engineering is a difficult task. Manual work and expertise needed.</p>
+<p>The effect is apparent in the transformation to polar coordinates. Similrly it is apparent that feature transformations are far from trivial in any real-world example.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Feature-Transformations">Feature Transformations<a class="anchor-link" href="#Feature-Transformations">&#182;</a></h2><p><img src="assets/features1.png" alt="Example of different representations">
+<img src="assets/feature_transform.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Capacity-and-Over-/Under--fitting">Capacity and Over-/Under- fitting<a class="anchor-link" href="#Capacity-and-Over-/Under--fitting">&#182;</a></h2><p>ML != Optimization ... <strong>generalization (test) error</strong></p>
+<p>model <strong>capacity</strong> controls whether the model is more likely to <strong>under-</strong> or <a href="https://www.youtube.com/watch?v=DQWI1kvmwRg"><strong>over-fit</strong></a>
+<!--![](assets/capacity.png)-->
+<img src="assets/over_under_fit.png" style="width: 600px;"/></p>
+<p>Caveat: Deep Learning models have theoretically unlimited capacity.</p>
+<p>Occam's Razor: Among competing hypotheses that explain known observations equally well, select the "simplest" one.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The No Free Lunch Theorem:
+Averaged over all data-generating distributions, every classification algorithm has the same error rate when classifying previously unseen samples.</p>
+<p>BUT, in practice, we encounter only some types of data-generating distributions that are problem specific. The goal of machine learning is thus to seek machine learning algorithms that perform well on data drawn from the given distribution.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Regularization">Regularization<a class="anchor-link" href="#Regularization">&#182;</a></h2><blockquote><p>Any modification to a learning algorithm that is intended to reduce generalization error but not the training error.</p>
+</blockquote>
+<p>E.g. penalize weights with <code>L2 norm</code>
+$$J(\boldsymbol{w}) = MSE_{train} + \lambda\boldsymbol{w}^T\boldsymbol{w},$$
+where $\lambda$ is a <strong>hyperparameter</strong> expressing our preference over possible model functions.</p>
+<p>How to choose values of hyperparameters?
+-&gt; train/<strong>validation</strong> split, e.g. 80/20
+<!-- Note that else you should have some test set that is also held out --></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><!--![](assets/generalization.png)-->
+<img src="assets/generalization.png" style="width: 400px;"/></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The fundamental trade-off between bias and variance - you seek a place where both are acceptably low - your mode has enough capacity to express the training data, but is not fundemntally biased towards this trainign data not to be able to predict on test</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Popular-ML-Algorithms">Popular ML Algorithms<a class="anchor-link" href="#Popular-ML-Algorithms">&#182;</a></h1><p>Supervised:</p>
+<ul>
+<li>Linear regression, Logistic regression, LDA,  SVMs, K-Nearest neighbors, Decision trees, ...</li>
+</ul>
+<p>Unsupervised:</p>
+<ul>
+<li>PCA, ICA, K-Means clustering, ...</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://cdn-images-1.medium.com/max/2000/1*dYgEs2roROf3j2ANzkDHMA.png"><img src="assets/ml_cheatsheet.png" style="width: 800px;"/></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://developers.google.com/machine-learning/rules-of-ml/">Rule #3: Choose machine learning over a complex heuristic.</a></p>
+<hr>
+<p>Here, go back to the landscape of AI slide. Motivate DL</p>
+<ul>
+<li>assuming that data was generated by composition of factors, features, potentially at multiple levels of hierarchy.</li>
+<li>Some problems do not benefit from DL. Other problems benefit immensely (object recognition, speech recognition, machine translation)</li>
+</ul>
+<p>Deep Learning takes some inspiration from neuroscoence, but does not try to model the way the brain works. That is a different pursuit. followed by neuroscience researchers. The domains continue to enrich each other though.</p>
+<p>Example is DanQ: a convolutional AND recurrent neural net for quantifying the function of DNA sequences. "predicting noncoding function de novo from sequence."</p>
+<ul>
+<li>Using deep learning to model the hierarchical structure and function of a cell</li>
+<li>Removal of batch effects using distribution-matching residual networks</li>
+<li>Learning a hierarchical representation of the yeast transcriptomic machinery using an autoencoder model</li>
+<li>Deep biomarkers of human aging</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Deep-Learning">Deep Learning<a class="anchor-link" href="#Deep-Learning">&#182;</a></h1><table>
+<thead><tr>
+<th style="text-align:center"><a href=""></a></th>
+<th style="text-align:center"><a href=""></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="assets/neuron_model.jpeg" style="width: 400px;"/></td>
+<td style="text-align:center"><img src="assets/neural_net.jpeg" style="width: 400px;"/></td>
+</tr>
+</tbody>
+</table>
+<p>Aplications in Genomics, System Biology, Biomarker discovery, ...</p>
+<ul>
+<li><a href="https://github.com/hussius/deeplearning-biology">deeplearning-biology</a></li>
+<li><a href="https://github.com/gokceneraslan/awesome-deepbio">awesome-deepbio</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Architecture:">Architecture:<a class="anchor-link" href="#Architecture:">&#182;</a></h2><h4 id="Depth-gives-more-powerful-models">Depth gives more powerful models<a class="anchor-link" href="#Depth-gives-more-powerful-models">&#182;</a></h4><table>
+<thead><tr>
+<th style="text-align:center"><a href=""></a></th>
+<th style="text-align:center"><a href=""></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="assets/depth1.png" style="width: 300px;"/></td>
+<td style="text-align:center"><img src="assets/depth2.png" style="width: 300px;"/></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Apart from depth and width there are other considerations in terms of architecture:</p>
+<ul>
+<li>Connectivity of the layers, backward connections<ul>
+<li>CNNs, RNNs</li>
+</ul>
+</li>
+<li>Skip connections<ul>
+<li>ResNets</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Example:-Learning-XOR">Example: Learning XOR<a class="anchor-link" href="#Example:-Learning-XOR">&#182;</a></h3><p>This is a toy example of <strong>deep feedforward network</strong> (also called <strong>MLP</strong>)</p>
+<table>
+<thead><tr>
+<th style="text-align:center"><a href=""></a></th>
+<th style="text-align:center"><a href=""></a></th>
+<th style="text-align:center"><a href=""></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="assets/xor.png" style="width: 200px;"/></td>
+<td style="text-align:center"><img src="assets/xor_net.png" style="width: 200px;"/></td>
+<td style="text-align:center"><img src="assets/relu.png" style="width: 300px;"/></td>
+</tr>
+</tbody>
+</table>
+<p>$$J(\boldsymbol{\theta}) = \frac{1}{4}\sum_{\boldsymbol{x}}^{}(f(\boldsymbol{x}) - \hat{f}(\boldsymbol{x}; \boldsymbol{\theta}))^2,\quad \hat{f}(\boldsymbol{x};\boldsymbol{\theta}) = \boldsymbol{x}^T\boldsymbol{w} + b \quad \rightarrow \quad \boldsymbol{\hat{y}} = \frac{1}{2} :($$</p>
+<p>Takeaway: Linear model can learn non-linear function via feature transformations. Instead of engineering it, you can learn it. Usually, by specifying some broader family of functions and tuning on the data.</p>
+<p>$$\boldsymbol{h}=g(\boldsymbol{W}^T\boldsymbol{x}+\boldsymbol{c}),$$
+where $h$ is output of hidden unit.
+$$\hat{f}(\boldsymbol{x}; \boldsymbol{\theta})= \boldsymbol{w}^T \mathrm{max}\{0,\boldsymbol{W}^T\boldsymbol{x}+\boldsymbol{c}\}+b$$</p>
+<p>Here we have used <strong>Rectified Linear Unit (ReLU)</strong> as nonlinearity $g(\cdot)$ on the hidden layer.</p>
+<hr>
+<p>Solution:
+$$
+\boldsymbol{W} = \begin{bmatrix}
+1 &amp; 1\\
+1 &amp; 1\\
+\end{bmatrix},
+\qquad
+\boldsymbol{c} = \begin{bmatrix}
+0\\
+-1\\
+\end{bmatrix},
+\qquad
+\boldsymbol{w} = \begin{bmatrix}
+1\\
+-2\\
+\end{bmatrix},
+\qquad b = 0.
+$$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note: There is plenty of activation functions, but ReLU is prefered.
+<img src="assets/activations.png" style="width: 300px;"/></p>
+<blockquote><p>Most deep nets nowadays use ReLU for hidden layers because it avoids the vanishing gradient problem and it is faster to train than alternatives.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Else there are Leaky ReLUs or Paramatric ReLUs that have nonzero gradient for x&lt;0.</p>
+<p>ReLUs are inspired by biological neurons and how they respond to stimuli.
+ReLUs are not differentiable at 0, so we take right-sided derivative instead (set the value to 0). This is how the software implementation (Tensorflow, Theano, ...) handles the problem.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Backpropagation">Backpropagation<a class="anchor-link" href="#Backpropagation">&#182;</a></h1><blockquote><p>Backpropagation is an algorithm that computes the chain rule of derivatives, with a specific order of computations that is highly efficient.</p>
+<p>The derivative on each variable tells you the sensitivity of the whole expression on its value.</p>
+</blockquote>
+<h2 id="Chain-rule">Chain rule<a class="anchor-link" href="#Chain-rule">&#182;</a></h2><p>$$y=g(x) \qquad z=f(g(x))=f(y)\rightarrow \frac{dz}{dx}=\frac{dz}{dy}\frac{dy}{dz}$$</p>
+<h2 id="Backprop-as-computational-graph:">Backprop as computational graph:<a class="anchor-link" href="#Backprop-as-computational-graph:">&#182;</a></h2><p><img src="assets/backprop_graph.png" style="width: 300px;"/></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>nodes = variables, edges = ops.</li>
+<li><p>DL Libraries like Thean and Tensorflow are built with computaitonal graphs in mind. They build the graph of backprop and they can well optimize its execution.</p>
+</li>
+<li><p>The backprop algorithm needn't to access numeric values. Instead, it adds nodes to computational graph symbolically decribing how to obtain these derivatives.</p>
+<ul>
+<li>a graph evaluation engine then evaluates every node as soon as its parent become available.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Forward-Propagation-for-MLP-as-Graph">Forward Propagation for MLP as Graph<a class="anchor-link" href="#Forward-Propagation-for-MLP-as-Graph">&#182;</a></h2><p>Objective:</p>
+<p>$$J = J_{MLE} + \lambda\bigg(\sum_{i,j}^{}\big(W_{i,j}^{(1)}\big)^2 + \sum_{i,j}^{}\big(W_{i,j}^{(2)}\big)^2\bigg)$$</p>
+<p><img src="assets/mlp_graph.png" style="width: 400px;"/></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Backprop-in-Fully-Connected-Feed-Forward-Net">Backprop in Fully Connected Feed Forward Net<a class="anchor-link" href="#Backprop-in-Fully-Connected-Feed-Forward-Net">&#182;</a></h2><h3 id="Forward-propagation:">Forward propagation:<a class="anchor-link" href="#Forward-propagation:">&#182;</a></h3><p><img src="assets/forprop.png" style="width: 400px;"/></p>
+<h3 id="Backprop:">Backprop:<a class="anchor-link" href="#Backprop:">&#182;</a></h3><p><img src="assets/backprop.png" style="width: 450px;"/></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Feedforward nets do not have feedback connections (as RNNs do).</p>
+<p>Backpropagation is <strong>merely</strong> algorithm to compute gradient. Learning is done separately (see <em>SGD</em>, RMSProp, Adam, Adagrad,...). Note that this is just the old same gradient based learning.</p>
+<p>Note that the pseudocode is on single sample. Normally we run it on sampled minibatches.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Regularization-for-DL">Regularization for DL<a class="anchor-link" href="#Regularization-for-DL">&#182;</a></h1><blockquote><p>Deep learning algorithms are typically applied to extremely
+complicated domains such as images, audio sequences and text, for which the true generation process essentially involves simulating the entire universe.<br>
+What this means is that controlling the complexity of the model is not a
+simple matter of ﬁnding the model of the right size, with the right number of parameters. Instead, we might ﬁnd - and indeed in practical deep learning scenarios, we almost always do ﬁnd - that <strong>the best fitting model (in the sense of minimizing generalization error) is a large model that has been regularized appropriately</strong>.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Parameter-Norm-Penalties">Parameter Norm Penalties<a class="anchor-link" href="#Parameter-Norm-Penalties">&#182;</a></h3><p>$$\tilde{J}(\boldsymbol{\theta}; \mathbf{X},\mathbf{y}) = J(\boldsymbol{\theta};\mathbf{X},\mathbf{y}) + \lambda\Omega(\boldsymbol{\theta}),$$
+express prior belief that the weights should be small and/or sparse. <a href="https://keras.io/constraints/">Constraints</a> and <a href="https://keras.io/regularizers/">Regularizers</a></p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.regularizers</span> <span class="kn">import</span> <span class="n">l1_l2</span>
+<span class="c1"># Adds regularization term to cost function</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_regularizer</span><span class="o">=</span><span class="n">l1_l2</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.constraints</span> <span class="kn">import</span> <span class="n">max_norm</span> <span class="c1"># l2 norm</span>
+<span class="c1"># Directly applies scaling to weights</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_constraint</span><span class="o">=</span><span class="n">max_norm</span><span class="p">(</span><span class="mf">2.</span><span class="p">)))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sparse-Representations">Sparse Representations<a class="anchor-link" href="#Sparse-Representations">&#182;</a></h3><p>Express prior belief on sparse activation outputs</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.regularizers</span> <span class="kn">import</span> <span class="n">l1_l2</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">activity_regularizer</span><span class="o">=</span><span class="n">l1</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$$L_2: \Omega(\boldsymbol{\theta}) = \frac{1}{2}||\boldsymbol{w}||_2^2 = \frac{1}{2}\sum_{i}^{}(w_i)^2, \qquad $$
+$$L_1: \Omega(\boldsymbol{\theta}) = \frac{1}{2}\sum_{i}^{}|w_i|. $$</p>
+<p><img src="assets/lasso.png" style="width: 400px;"/></p>
+<ul>
+<li>usually penalize only weigths, not biases <code>bias_constraint</code></li>
+<li>may penalize layers with different $\alpha$</li>
+<li>combining <code>l1</code> and <code>l2</code> is <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html">elastic net</a></li>
+<li><code>l1</code> is lasso and does feature selection</li>
+</ul>
+<ul>
+<li>Sparse representations: Puts a penalty on activation outputs. This leads to sparse representations of features and indirectl poses complicated penalty on weights.<ul>
+<li>Biases are usually not reguralized, but can be done in same fashion.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Dataset-Augmentation">Dataset Augmentation<a class="anchor-link" href="#Dataset-Augmentation">&#182;</a></h3><p>Includes noise injection to inputs, hidden layer weights, targets. <a href="https://keras.io/preprocessing/image/">Image Preprocessing</a></p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.utils</span> <span class="kn">import</span> <span class="n">np_utils</span>
+<span class="kn">from</span> <span class="nn">keras.datasets</span> <span class="kn">import</span> <span class="n">cifar10</span>
+<span class="kn">from</span> <span class="nn">keras.preprocessing.image</span> <span class="kn">import</span> <span class="n">ImageDataGenerator</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">deep_nn</span><span class="p">()</span> <span class="c1"># defined elswhere</span>
+
+<span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">cifar10</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">np_utils</span><span class="o">.</span><span class="n">to_categorical</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">np_utils</span><span class="o">.</span><span class="n">to_categorical</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+
+<span class="n">datagen</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span>
+    <span class="n">featurewise_center</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">featurewise_std_normalization</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">rotation_range</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">width_shift_range</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">height_shift_range</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">horizontal_flip</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># compute quantities required for featurewise normalization</span>
+<span class="n">datagen</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+
+<span class="c1"># fits the model on batches with real-time data augmentation:</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">datagen</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">),</span>
+                    <span class="n">steps_per_epoch</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span> <span class="o">/</span> <span class="mi">32</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Adversarial Training is form of dataste augmentation when we try to construct such examples that make the net fail.</li>
+<li>It acts as an regularizer in that it encourages the net to be locally constant in the neigborhood if the training data. Thus avderisal training is a way how to introduce constancy prior.</li>
+</ul>
+<p><img src="assets/adversarial-example.png" style="width: 500px;"/></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Early-Stopping">Early Stopping<a class="anchor-link" href="#Early-Stopping">&#182;</a></h3><p>Return parameters that gave the lowest validation set loss. <a href="https://keras.io/callbacks/#earlystopping">Early Stopping</a></p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.callbacks</span> <span class="kn">import</span> <span class="n">EarlyStopping</span>
+<span class="kn">from</span> <span class="nn">keras.optimizers</span> <span class="kn">import</span> <span class="n">SGD</span>
+<span class="c1">#define model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">deep_nn</span><span class="p">()</span> <span class="c1"># this is defined elsewhere</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">SGD</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+<span class="c1"># define early stopping callback</span>
+<span class="n">earlystop</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_acc&#39;</span><span class="p">,</span> <span class="n">min_delta</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span>
+                          <span class="n">patience</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+<span class="n">callbacks_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">earlystop</span><span class="p">]</span>
+<span class="c1"># train the model</span>
+<span class="n">model_info</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+                       <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks_list</span><span class="p">,</span>
+                       <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Early stopping is simple to implement, you get it anyway</li>
+<li>Number of steps for training is a hyperparameter as well </li>
+<li>Things become more difficult if your training is unsupervised</li>
+</ul>
+<p><img src="assets/early_stopping.png" style="width: 400px;"/></p>
+<ul>
+<li>Early stopping is the most popular form of regularization in DL<ul>
+<li>treats number of steps as hyperparameter (n* is optimal)</li>
+<li>cheap to optimize, cost mainly only from getting loss on validation set</li>
+<li>should refit on the whole train+valid set after picked weights from early stopping<ul>
+<li>either reinitialize, pool data and train for n* steps</li>
+<li>or train from where you are and wait till error drops to the lowest one observed previously (which may not happen)</li>
+</ul>
+</li>
+<li>Regularization done by limiting the param. space the NN can explore. In this sense it acts similarly as parameter norms and constraints, but the amount of regularization is obtained from the traning phase, without need for some apriori or search</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Parameter-Sharing">Parameter Sharing<a class="anchor-link" href="#Parameter-Sharing">&#182;</a></h3><p>Forces parameter sets to be equal.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Embedding</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Conv1D</span><span class="p">,</span><span class="n">GlobalAveragePooling1D</span><span class="p">,</span><span class="n">MaxPooling1D</span>
+
+<span class="n">seq_length</span> <span class="o">=</span> <span class="mi">64</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">seq_length</span><span class="p">,</span> <span class="mi">100</span><span class="p">)))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling1D</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">GlobalAveragePooling1D</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;rmsprop&#39;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Parameter sharing allows us not to store all the params, only the unqiue ones.<ul>
+<li>Expresses prior that only bunch of pixels have meaning, not single pixels.</li>
+<li>Helps to achieve translational invariance</li>
+<li>Used in Convolutional Neural nets, but that is not the only domain. Sequences, texts as well!<ul>
+<li>basically expresses the prior that features learned in one place are useful also elswhere (e.g. edges in images)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Together with local connectivity this is one of the two main features of CNNs.</p>
+<ul>
+<li>more on that some time later.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Model-Averaging">Model Averaging<a class="anchor-link" href="#Model-Averaging">&#182;</a></h3><blockquote><p>Any machine learning algorithm can benefit substantially from model averaging (e.g. bagging) at the price of increased computation and memory. Machine learning competitions are usually won by methods using model averaging over dozens of models.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_hastie_10_2</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingClassifier</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_hastie_10_2</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">2000</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="mi">2000</span><span class="p">:]</span>
+<span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:</span><span class="mi">2000</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">2000</span><span class="p">:]</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                                 <span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span>\
+                                <span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="mf">0.913</span>
+</pre></div>
+<p>Check also <a href="https://keras.io/layers/core/#lambda">Keras Lambda</a> layers</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="assets/ensembl.png" style="width: 500px;"/>
+<img src="assets/ensembl2.png" style="width: 500px;"/></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>The goal of ensemble methods is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability / robustness over a single estimator.<ul>
+<li>Bagging ... average of estimators built independently (they should be as uncorrelated as possible). It acts as regularizer in that it reduces variance of etimates</li>
+<li>Boosting ... weighted average of estimators built sequentially (sort of mixture of experts) ... leads to increased model capacity</li>
+<li>JMD may tell you more about this if he talks about Dueling Networks</li>
+<li>NNs can be bagged even if trained on same datastet with same objective. There is already so much happening under the hood (random initialization, minibatches sampling, hyperparams seelction,...) that the errors made by such nets will bepartially independentn</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Dropout">Dropout<a class="anchor-link" href="#Dropout">&#182;</a></h3><p>Very effective and simple regularization technique. To a first approximation, dropout is a method for making bagging practical for very many and large NNs.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span> <span class="nn">keras.layers.core</span> <span class="kn">import</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Activation</span>
+<span class="kn">from</span> <span class="nn">keras.layers.convolutional</span> <span class="kn">import</span> <span class="n">Convolution2D</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Convolution2D</span><span class="p">(</span><span class="n">filters</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+                        <span class="n">strides</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">input_shape</span> <span class="o">=</span> <span class="n">img_size</span> <span class="o">+</span> <span class="p">(</span><span class="n">num_frames</span><span class="p">,</span> <span class="p">)))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="o">...</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">Vanilla Dropout</span>
+<span class="sd">We drop and scale at train time and don&#39;t do anything at test time.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># prob of keeping a unit active. higher = less dropout</span>
+
+<span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+  <span class="c1"># forward pass for example 3-layer neural network</span>
+  <span class="n">H1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W1</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span><span class="p">)</span>
+  <span class="n">U1</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="n">H1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">p</span><span class="p">)</span> <span class="o">/</span> <span class="n">p</span> <span class="c1"># first dropout mask.</span>
+  <span class="n">H1</span> <span class="o">*=</span> <span class="n">U1</span> <span class="c1"># drop</span>
+  <span class="n">H2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W2</span><span class="p">,</span> <span class="n">H1</span><span class="p">)</span> <span class="o">+</span> <span class="n">b2</span><span class="p">)</span>
+  <span class="n">U2</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="n">H2</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">p</span><span class="p">)</span> <span class="o">/</span> <span class="n">p</span> <span class="c1"># second dropout mask.</span>
+  <span class="n">H2</span> <span class="o">*=</span> <span class="n">U2</span> <span class="c1"># drop</span>
+  <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W3</span><span class="p">,</span> <span class="n">H2</span><span class="p">)</span> <span class="o">+</span> <span class="n">b3</span>
+
+  <span class="c1"># backward pass: compute gradients... (not shown)</span>
+  <span class="c1"># perform parameter update... (not shown)</span>
+<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+  <span class="c1"># ensembled forward pass</span>
+  <span class="n">H1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W1</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span><span class="p">)</span>
+  <span class="n">H2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W2</span><span class="p">,</span> <span class="n">H1</span><span class="p">)</span> <span class="o">+</span> <span class="n">b2</span><span class="p">)</span>
+  <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W3</span><span class="p">,</span> <span class="n">H2</span><span class="p">)</span> <span class="o">+</span> <span class="n">b3</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Batch-Normalization">Batch Normalization<a class="anchor-link" href="#Batch-Normalization">&#182;</a></h3><p>Applies a transformation that maintains the mean activation close to 0 and the activation standard deviation close to 1.
+See <a href="https://keras.io/layers/normalization/">docs</a></p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span> <span class="nn">keras.layers.core</span> <span class="kn">import</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Activation</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">BatchNormalization</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="o">...</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Regularization-Checkpoint:">Regularization Checkpoint:<a class="anchor-link" href="#Regularization-Checkpoint:">&#182;</a></h2><ul>
+<li>Use <code>Dropout</code>, <code>BatchNormalization</code>, <code>EarlyStopping</code> and <code>l2</code></li>
+<li>Center and scale inputs, augment if possible</li>
+<li>Select appropriate loss function<ul>
+<li>classification: <code>categorical_crossentropy</code>, <code>squared_hinge</code></li>
+<li>regression: <a href="https://medium.com/@karpathy/yes-you-should-understand-backprop-e2f06eab496b"><code>huber_loss</code></a>, <code>MSE</code> (l2 loss)</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Optimizing L2 loss is more dificiult than the classification losses. Whenever possible, think if you can substitute regression by classification.</li>
+<li>The squared loss function results in an arithmetic mean-unbiased estimator, and the absolute-value loss function results in a median-unbiased estimator (in the one-dimensional case, and a geometric median-unbiased estimator for the multi-dimensional case). The squared loss has the disadvantage that it has the tendency to be dominated by outliers. Huber loss combines best of the two rolds</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>"The best way how to make a machine learning model generalize better is to train it on more data. Of course, this is easier said than done on partice. One way how to get around the problem is using fake data." For some tasks, it is more straightforward to create fake data then for others. Classification is such task.</p>
+<ul>
+<li>This includes also injecting additive noise to the input</li>
+<li>Dataset augumentation techniques are hand-designed :)</li>
+</ul>
+</li>
+<li><p>Dropout - as simple to implement as it gets</p>
+<ul>
+<li>used only during training.</li>
+<li>0.5 is good place to start</li>
+<li>sort of like bagging, but models are not independen (they share params, which ismemory-benefitial)</li>
+<li>it is more effective than weight decay, activity reguralizers, ...</li>
+<li>can be expensive (despite being cheap to apply). Reduces model capacity -&gt; need larger model and more training -.-</li>
+<li>Drop out is less effective when few traning examples available.</li>
+<li>Droput reguralizers hiden units to be good features in VARIETY of contexts</li>
+<li>Droupout is multiplicative noise on hidden units. It works as adaptive destruction of the information content in the input</li>
+<li>May want to draw a picture!</li>
+</ul>
+</li>
+<li>BatchNormalization: mainly to aid optimization but also introduces both additive and multiplicative noise on hidden units<ul>
+<li>batch normalization can be interpreted as doing preprocessing at every layer of the network, but integrated into the network itself in a differentiable manner. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Optimization-for-DL-Training">Optimization for DL Training<a class="anchor-link" href="#Optimization-for-DL-Training">&#182;</a></h1><blockquote><p>Of all the many optimization problems involved in DL, the most difficult is NN training. It is quite common to invest days to months of time on hundreds of machines to solve even a single instance of the NN training problem.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Selecting-Minibatch-Size">Selecting Minibatch Size<a class="anchor-link" href="#Selecting-Minibatch-Size">&#182;</a></h2><ul>
+<li>larger batches estimate gradient more accurately, but with less then linear returns</li>
+<li>batch should not be too small to better use hardware resources, but not too big to be able to fit to memory</li>
+<li>GPUs tend to prefer power 2 sized batches</li>
+</ul>
+<h4 id="Notes:">Notes:<a class="anchor-link" href="#Notes:">&#182;</a></h4><ul>
+<li>Batches are sampled randomly</li>
+<li>Should shuffle the set, if data has some temporal correlation.</li>
+<li>Run several <code>epochs</code></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The goal: finding parameters $\theta$ that siginficantly reduce a cost function $J(\boldsymbol{\theta})$, which typically includes a performance measure evaluated on the entire training set as well as additional regularization terms.</p>
+<ul>
+<li><p>Optimization algorithms used for training of deep models diﬀer from traditional optimization algorithms in several ways</p>
+<ul>
+<li>ML acts indirectly we reduce J in hope of also optimizing some P that is often intractable. In optimization, we just go for optimizing J.</li>
+<li>additional problems arrise if your objective is non differentiable (e.g. class assignement as piecewise constant) -&gt; <strong>surrogate objective function</strong></li>
+<li>We also practice early stopping, not going for minumun of J</li>
+<li>Loss ususally decomposes over samples and you compute it batch-wise</li>
+</ul>
+</li>
+<li><p>Batches randomly, But Prioritized Experience Replay may be advantageous over random batches sampling.</p>
+</li>
+<li><p>Epohes are passes over the set. Only the first pass is theoretically guaranteed to improve the generalization error so should not run too many times, unless overfitting. (E.g. Montior you validation loss.)</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Minima,-Saddles-and-Cliffs">Minima, Saddles and Cliffs<a class="anchor-link" href="#Minima,-Saddles-and-Cliffs">&#182;</a></h2><blockquote><p>Nearly any deep model is essentially guaranteed to have an extremely large number of local minima.</p>
+<p>For many high-dimensional nonconvex functions, local minima (and maxima)
+are in fact rare compared to another kind of point with zero gradient: a saddle point.</p>
+</blockquote>
+<ul>
+<li>Plot norm of the gradient over time!</li>
+</ul>
+<h4 id="Gradient-Clipping">Gradient Clipping<a class="anchor-link" href="#Gradient-Clipping">&#182;</a></h4><p><img src="assets/clipping.png" style="width: 400px;"/>
+<code>clipnorm</code> and <code>clipvalue</code> can be used with all optimizers</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras</span> <span class="kn">import</span> <span class="n">optimizers</span>
+<span class="c1"># All parameter gradients will be clipped to:</span>
+<span class="c1"># a maximum value of 0.5 and and a minimum value of -0.5.</span>
+<span class="n">sgd1</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">clipvalue</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="c1"># a maximum norm of 1.</span>
+<span class="n">sgd2</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">clipnorm</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>Less of a problem as many minima arise from model nonidentifiability (shufling inputs, scaling parameters) and are equivalent</p>
+</li>
+<li><p>Plateaus, Saddles, ...</p>
+</li>
+<li><p>Cliffs can countreact learning.</p>
+<ul>
+<li>They are frequent with RNNs as there we apply matrix multiplication by the same matrix repeatedly.</li>
+</ul>
+</li>
+<li><p>Similarly, gradients could often vanish in RNNs, to address this, LSTMs (Long-short-temr-memory unit) and GRUs (gated recurrent unit)</p>
+<ul>
+<li>In FF nets, use skip connections (as in res nets)</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Parameter-Initialization">Parameter Initialization<a class="anchor-link" href="#Parameter-Initialization">&#182;</a></h2><blockquote><p>Usually, we set the biases for each unit to heuristically chosen constants and initialize only the weights randomly.</p>
+<p>If computational resources allow it, it is usually a good idea to treat the scale of the weights for each layer as a hyperparameter.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>Greedy supervised pretraining is often used.</p>
+</li>
+<li><p>may use unsupervised learning and same data to get initial model parameters for supervised learning.</p>
+<ul>
+<li>Even prtraining on unrelated task may be helpful. Makes units look for different features, sets correct scale, ...</li>
+<li>Greedy layer-wise unsupervised pretraining.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Optimizer-Algorithms-for-ML">Optimizer Algorithms for ML<a class="anchor-link" href="#Optimizer-Algorithms-for-ML">&#182;</a></h2><p>SGD, RMsprop, Adagrad, Adadelta, Adam, Adamax, Nadam</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Stochastic-Gradient-Descent">Stochastic Gradient Descent<a class="anchor-link" href="#Stochastic-Gradient-Descent">&#182;</a></h3><ul>
+<li>Classical Gradient Descent: $$w_j := w_j - \alpha \frac{\partial J(\boldsymbol{w})}{\partial w_j},$$ where $\alpha$ is <em>learning rate</em>, is of $\mathcal{O}(m)$</li>
+<li>Loss decomposes as sum over samples
+$$J(\boldsymbol{w}) = \frac{1}{m}\sum_i^{m}(\hat{y}_i-y_i)^2 \xrightarrow[]{\nabla_{\boldsymbol{w}}} \nabla_{\boldsymbol{w}} J(\boldsymbol{w}) = \frac{2}{m} \boldsymbol{X}^T (\boldsymbol{\hat{y}}-\boldsymbol{y})$$</li>
+<li>Insight: gradient is expectation that can be estimated on subset of samples<ul>
+<li>Draw (uniformly) a fixed-sized <strong>minibatch</strong></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Powers nearly all of deep learning.</li>
+<li>SGD useful when cost function can be decomposed as sum over examples</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="assets/pseudo_sgd.png" style="width: 500px;"/></p>
+<h4 id="Adaptive-Learning-Rate">Adaptive Learning Rate<a class="anchor-link" href="#Adaptive-Learning-Rate">&#182;</a></h4><p>In practice, anneal learning rate linearly until iteration $\tau$, then keep constant:
+$$\epsilon_k = (1-\alpha)\epsilon_0 + \alpha\epsilon_\tau$$</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.optimizers</span> <span class="kn">import</span> <span class="n">SGD</span>
+<span class="n">sgd</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">decay</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Momentum-and-Nesterov-Momentum">Momentum and Nesterov Momentum<a class="anchor-link" href="#Momentum-and-Nesterov-Momentum">&#182;</a></h4><p>$\theta \leftarrow \theta - \epsilon_k\hat{\boldsymbol{g}}$ becomes:
+$$\boldsymbol{v} \leftarrow \alpha \boldsymbol{v} - \epsilon_k\hat{\boldsymbol{g}}, \qquad \theta \leftarrow \theta + \boldsymbol{v}$$</p>
+<p>Update step is larger if experienced gradients point consistently in one direction. Counteracts getting stopped in regions of low gradient.</p>
+<p><img src="assets/nesterov.jpeg" style="width: 600px;"/></p>
+<div class="highlight"><pre><span></span><span class="n">sgd</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">nesterov</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Other-Optimizers">Other Optimizers<a class="anchor-link" href="#Other-Optimizers">&#182;</a></h3><p>RMsprop, Adagrad, Adadelta, Adam, Adamax, Nadam</p>
+<table>
+<thead><tr>
+<th style="text-align:center"><a href=""></a></th>
+<th style="text-align:center"><a href=""></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="assets/optimizers.gif" style="width: 300px;"/></td>
+<td style="text-align:center"><img src="assets/optimizers1.gif" style="width: 300px;"/></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>May want to use adaptive learning rate. Minibatch usually MUCH smaller than the size of dataset ... quicknes the computation  (or even makes it possible).</p>
+<p>Stopping criterion? - usually by monitoring loss on validation set.</p>
+<p>Adaptive LR available also with other optimziers. But here more advanced approaches taken to speed up training, avoid getting stuck,...</p>
+<ul>
+<li>Much like Adam is essentially RMSprop with momentum, Nadam is Adam RMSprop with Nesterov momentum.</li>
+</ul>
+<ul>
+<li>RMSprop used in the DeepMindNature paper <a href="http://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf">http://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf</a> </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Supervised-Pretraining">Supervised Pretraining<a class="anchor-link" href="#Supervised-Pretraining">&#182;</a></h2><ul>
+<li>Train each layer separately</li>
+<li>Train each layer using as output of previously trained layer as input</li>
+<li>Train deep model, keep only $n$, $m$ layers on input and output, fill in between with randomly initialized layers to make even deeper model</li>
+</ul>
+<h4 id="Transfer-Learning">Transfer Learning<a class="anchor-link" href="#Transfer-Learning">&#182;</a></h4><ul>
+<li>Train model on some task, keep $k$ first layers, retrain on different task (possibly with fewer samples)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Skip-Connections">Skip Connections<a class="anchor-link" href="#Skip-Connections">&#182;</a></h2><p><img src="assets/skipconnects.png" style="width: 400px;"/></p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=K0uoBKBQ1gA">ResNets</a></li>
+</ul>
+<h2 id="(Stochastic)-Curriculum-Learning">(Stochastic) Curriculum Learning<a class="anchor-link" href="#(Stochastic)-Curriculum-Learning">&#182;</a></h2><ul>
+<li>Give the net random mix of easy and difficult examples, increase proportion of difficult ones over time.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>Supervised pretraining is akin to Transfer Learning</p>
+</li>
+<li><p>Skip Connections reduce the length of the shortest path from layers to output. This facilitates backpropagation and avoids vanishing gradient problem (gradient too small and thus uninformative). This problem arises with squashing funcs (fine as we avoid them) and in deep nets (due to repeated ops through layers driivng values &lt;1 lower and lower)</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Optimization-for-DL-summary:">Optimization for DL summary:<a class="anchor-link" href="#Optimization-for-DL-summary:">&#182;</a></h2><ul>
+<li>Initialize layer weights from normal distribution, preferably <code>he_normal</code><ul>
+<li>or check values of gradients on single minibatch, adjust scale of initial weights accordingly</li>
+<li>or initialize (some) weights with supervised pretraining</li>
+</ul>
+</li>
+<li>use <code>Adam</code> or <code>SGD</code> w/ <em>momentum</em></li>
+<li>use <em>gradient clipping</em></li>
+<li>use <em>adaptive learning rate</em></li>
+<li>select model type according to established practice (CNNs, RNNs, ResNets, ...)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Practical-Methodology-(cont'd)">Practical Methodology (cont'd)<a class="anchor-link" href="#Practical-Methodology-(cont'd)">&#182;</a></h1><blockquote><p>In practice, one can usually do much better with a correct application of a commonplace algorithm than by sloppily applying an obscure algorithm.</p>
+</blockquote>
+<ul>
+<li><a href="https://see.stanford.edu/materials/aimlcs229/ML-advice.pdf">Advice for applying Machine Learning</a></li>
+<li><a href="https://developers.google.com/machine-learning/rules-of-ml/">Rules of Machine Lerning</a></li>
+</ul>
+<h3 id="Recipe">Recipe<a class="anchor-link" href="#Recipe">&#182;</a></h3><ul>
+<li>Determine your goals (performance metric and their target value)</li>
+<li>Establish baseline implementation of the end-to-end pipeline ASAP</li>
+<li>Use logging, callbacks and <a href="https://www.tensorflow.org/versions/r1.0/get_started/summaries_and_tensorboard">visualizations</a> generously to determine bottlenecks</li>
+<li>Iterate with incremental changes</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Performance-Metrics">Performance Metrics<a class="anchor-link" href="#Performance-Metrics">&#182;</a></h2><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mean_squared_error&#39;</span><span class="p">,</span>
+              <span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mae&#39;</span><span class="p">,</span> <span class="s1">&#39;acc&#39;</span><span class="p">])</span>
+</pre></div>
+<ul>
+<li>use multiple, often problem specific<ul>
+<li>Can report F1 score: $$F = \frac{2pr}{p+r}$$</li>
+<li>also Coverage, AUC</li>
+</ul>
+</li>
+<li><code>loss</code> != <code>metrics</code></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Alternative is reporting area under precision recall curve.</li>
+<li>Draw precision recall curve, TPR / FPR
+<img src="assets/roc.png" style="width: 400px;"/></li>
+<li>Coverage: How many samples can you make a decision on autonomously (ahving human assistance is not that bad thing, also if you can feed in the information)<ul>
+<li>E.g. Google Street View House Number Transcription had 95% coverage</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Callbacks">Callbacks<a class="anchor-link" href="#Callbacks">&#182;</a></h3><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">keras.callbacks</span> <span class="kn">import</span> <span class="n">Callback</span>
+<span class="kn">from</span> <span class="nn">keras</span> <span class="kn">import</span> <span class="n">backend</span> <span class="k">as</span> <span class="n">K</span>
+
+<span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">recall</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+
+        <span class="n">true_positives</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">y_true</span> <span class="o">*</span> <span class="n">y_pred</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="n">possible_positives</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="n">recall</span> <span class="o">=</span> <span class="n">true_positives</span> <span class="o">/</span> <span class="p">(</span><span class="n">possible_positives</span> <span class="o">+</span> <span class="n">K</span><span class="o">.</span><span class="n">epsilon</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">recall</span>
+
+    <span class="k">def</span> <span class="nf">precision</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+
+        <span class="n">true_positives</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">y_true</span> <span class="o">*</span> <span class="n">y_pred</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="n">predicted_positives</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="n">precision</span> <span class="o">=</span> <span class="n">true_positives</span> <span class="o">/</span> <span class="p">(</span><span class="n">predicted_positives</span> <span class="o">+</span> <span class="n">K</span><span class="o">.</span><span class="n">epsilon</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">precision</span>
+
+    <span class="n">precision</span> <span class="o">=</span> <span class="n">precision</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">recall</span> <span class="o">=</span> <span class="n">recall</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="p">((</span><span class="n">precision</span><span class="o">*</span><span class="n">recall</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">precision</span><span class="o">+</span><span class="n">recall</span><span class="o">+</span><span class="n">K</span><span class="o">.</span><span class="n">epsilon</span><span class="p">()))</span>
+
+<span class="k">class</span> <span class="nc">Metrics</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">on_train_begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logs</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val_f1s</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">on_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">logs</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>\
+                            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">validation_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
+        <span class="n">y_true</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">validation_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">_val_f1</span> <span class="o">=</span> <span class="n">f1</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val_f1s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_val_f1</span><span class="p">)</span>
+        <span class="k">return</span>
+
+<span class="n">metrics</span> <span class="o">=</span> <span class="n">Metrics</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_data</span><span class="p">,</span> <span class="n">training_target</span><span class="p">,</span>
+          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">validation_data</span><span class="p">,</span> <span class="n">validation_target</span><span class="p">),</span>
+          <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">metrics</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Baseline-Prototype">Baseline Prototype<a class="anchor-link" href="#Baseline-Prototype">&#182;</a></h2><ul>
+<li>Pick appropriate model (recall <em>Occam's Razor</em>, don't reinvent the wheel)</li>
+</ul>
+<table>
+<thead><tr>
+<th style="text-align:left">Model</th>
+<th style="text-align:right">Feedforward</th>
+<th style="text-align:right">CNN</th>
+<th style="text-align:right">RNN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Input</td>
+<td style="text-align:right">fixed sized vector</td>
+<td style="text-align:right">topological structure</td>
+<td style="text-align:right">sequence</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>As a sanity check, make sure your initial loss is reasonable, and that you can achieve 100% training accuracy on a very small portion of the data</li>
+<li>Use available <a href="http://deeplearning.net/datasets/">datasets</a> and <a href="https://github.com/tensorflow/models">models</a> to your advantage</li>
+<li>Use model ensembles for extra performance</li>
+<li>During training, monitor the loss, the training/validation accuracy, the magnitude of updates in relation to parameter values (it should be ~1e-3), and when dealing with ConvNets, the first-layer weights.</li>
+<li>Use unsupervised pre-training (domain dependent)</li>
+</ul>
+<p>Additionally, use all that mentioned with <strong>Optimizers</strong> and <strong>Regularization</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Pick simplest model possible, don't do DL if not necessary<ul>
+<li>It should be clear to you that successful application of DL requires quite some work.</li>
+<li>Rule #1: Don’t be afraid to launch a product without machine learning.</li>
+<li>Rule #3: Choose machine learning over a complex heuristic.</li>
+</ul>
+</li>
+<li>Unsupervised pretraining should be used if your domain uses it.</li>
+<li>If your error on training set is higher than target error rate, you have no choice but to increase model capacity. If not regularized, must add layers, units.</li>
+<li>neural nets typically perform best if the training error is very low. The   generalization gap then should be closed by proper regularization.</li>
+<li>Setting up all the callbacks, plotting, reporting etc is time consuming, but it is largely one-time effort.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Do-I-need-more-data?">Do I need more data?<a class="anchor-link" href="#Do-I-need-more-data?">&#182;</a></h3><blockquote><p>Many ML novices are tempted to make improvements by trying out many different algorithms. Yet, it is often much better to gather more data than to improve the learning algorithm.</p>
+</blockquote>
+<ul>
+<li>performance on training set poor =&gt; more data won't help</li>
+<li>test set performance poor &amp; train set performance good =&gt; get more data</li>
+</ul>
+<h4 id="How-much-data-do-I-need?">How much data do I need?<a class="anchor-link" href="#How-much-data-do-I-need?">&#182;</a></h4><p><img src="assets/accuracy_samples.png" style="width: 450px;"/></p>
+<blockquote><p>Usually, adding a small fraction of the total number of examples will not have noticeable on generalization error. As a rule of thumb, aim at least at doubling the training set size.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Clearly, you should always get as much as possible. Of course, this is limited.</p>
+<ul>
+<li>Poor performance on trainign set<ul>
+<li>bigger model</li>
+<li>tune hyperparams</li>
+<li>if doesnt work - data likely bad quality - get new data.</li>
+</ul>
+</li>
+<li>Poor performance on test set<ul>
+<li>if getting more data too expensive (e.g. medical domain) -&gt; reduce model capacity = smaller model, regularization<ul>
+<li>If doesnt work, should get more data</li>
+</ul>
+</li>
+<li>The amount of data -- get it by extrapolating the learning curve</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Selecting-hyperparameters">Selecting hyperparameters<a class="anchor-link" href="#Selecting-hyperparameters">&#182;</a></h3><p>Manual vs. Automatic</p>
+<blockquote><p>If you have time to tune only one hyperparameter, tune the learning rate.</p>
+<p>NN can sometimes perform well with only a small number of tuned hyperparameters, but often benefit significantly from tuning forty or more.</p>
+</blockquote>
+<p>Random Search &gt; Grid Search
+<img src="assets/hyperparam_search.jpeg" style="width: 400px;"/></p>
+<p>Example:
+$$\texttt{log_learning_rate} \tilde{} U(-1, -5),$$
+$$\texttt{learning_rate} = 10^{\texttt{log_learning_rate}}$$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Can do it manually, but need experience and deeper understanding</li>
+<li>The effective capacity of the model is highest when the <code>lr</code> is <em>correct</em></li>
+<li><p>Size and number of hidden layers is also a hyperparameter</p>
+</li>
+<li><p>Examples of hyperparameters:</p>
+<ul>
+<li>Learbing rate, loss function, minibatch size, number if training iterations/epohcs, momentum </li>
+<li>Preprocessing parameters - channels, image size, scaling, centering, ...</li>
+<li>number of hidden units, convoltuion kernel size, weight decay, dropout,  nonlinearity, activation sparsity, weight initialization, model averaging, Batch Normalization, Pooling</li>
+</ul>
+</li>
+<li><p>Prefer Random Search over grid Search - avoids wasting computation on unimportant parameters.</p>
+<ul>
+<li>Define distribution over parameters.</li>
+<li>Should be on log-scale</li>
+<li>Should run it iteratively to achieve better granularity</li>
+</ul>
+</li>
+<li><p>Can also try Model-Based methods</p>
+<ul>
+<li>run set of experiments and adjust upcoming ones baed on results of previous ones <a href="https://arxiv.org/abs/1406.3896">paper</a></li>
+<li>Optimization problem</li>
+<li>field not estabilished yet</li>
+<li>Bayessian methods</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Debugging-Strategies-for-ML">Debugging Strategies for ML<a class="anchor-link" href="#Debugging-Strategies-for-ML">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>Machine learning systems are difficult to debug [...]</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="assets/still-waiting-for-my-neural-network-to-train.jpg" style="width: 200px;"/></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Visualize model in action</li>
+<li>Visualize the worst mistakes</li>
+<li>Check training and test errors<ul>
+<li>Bias / Variance trade-off</li>
+</ul>
+</li>
+<li>Fit a tiny dataset</li>
+<li>Monitor histograms of activations and gradients</li>
+<li>Prototype, fail &amp; improve</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>Often you don't know appriori what the inteded behaviour of the model is. You are using ML/DL to help you undestanding sth what cannot specify yourself.</p>
+</li>
+<li><p>DL/ML models are assemblage of parts that are adaptive. If A is wrong B,C,D often make up for it.</p>
+<ul>
+<li>Suppose you implement gradient update rule on biases and do it erroneously such that thet become negative $b \leftarrow b-\alpha$. You may not figur out as weights may adapt</li>
+<li>Fit on data that is so simple (small) that you can predict correct behavior</li>
+<li>Test just part of the net in isolation.</li>
+</ul>
+</li>
+</ul>
+<p>Visualize model in action:</p>
+<ul>
+<li>look at your agent playing a game</li>
+<li>listen to speech samples of a generative model</li>
+</ul>
+<p>Visualize the worst mistakes</p>
+<ul>
+<li>get confidence measure for a training example and look at those that are the worst cases of misslasification (very confident about a different label) or that the model has troubles deciding about (not really confident about any label). You should be picking up the latter anyway.</li>
+</ul>
+<p>Check training and test errors:</p>
+<ul>
+<li>If cannot get low training error: something must be wrong.</li>
+<li>If train err low but test high:<ul>
+<li>Overfitting, need to regularize</li>
+<li>Alternativelly, check that you set up your test model correctly (Droputs, BN, weight loading, hyperparams, ...)</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead><tr>
+<th style="text-align:center">High Variance (overfit)</th>
+<th style="text-align:center">High Bias (bad/few features)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="assets/highvariance.png" style="width: 300px;"/></td>
+<td style="text-align:center"><img src="assets/highbias.png" style="width: 300px;"/></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>check question: what I need to do to adress the overfitting issue:<ul>
+<li>regularize, fewer features, more trainign examples</li>
+</ul>
+</li>
+</ul>
+<p>Fit a tiny dataset:</p>
+<ul>
+<li>you must be able to correctly classify single example / correctly reproduce a single example (autoencoder) / emit samples similar to one example (generative nets)</li>
+</ul>
+<p>Monitor histograms of activations and gradients</p>
+<ul>
+<li>possibly over one epoch</li>
+<li>can also monitor relative value of parameter update to parameter (should be like ~1%)</li>
+<li>note that for sparse data (like in NLP) some parts of net updated only very infrequently.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Landscape-of-DL">Landscape of DL<a class="anchor-link" href="#Landscape-of-DL">&#182;</a></h3><ul>
+<li>Theano</li>
+<li>Tensorflow</li>
+<li>Keras</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>General words of advice:</p>
+<ul>
+<li>find a suitable architecure online and adapt</li>
+<li>If available, use pretrained model</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Other stuff we should talk about:</p>
+
+<pre><code>* CNNs
+* RNNs
+* Reinforcement Learning (JMD)
+* Autoencoders
+* DL as applied to genomics
+* Grid Search
+* Computational Graphs
+* Transfer Learning
+*
+
+</code></pre>
+<p>Other interesting stuff</p>
+
+<pre><code>* Teacher/Student Nets
+* Model Compression
+* Neuromorphic eng
+* Quantum computing for ML
+* Zero Shot learning
+* Supervised Pretraining</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="References">References<a class="anchor-link" href="#References">&#182;</a></h1><ul>
+<li><a href="http://www.deeplearningbook.org/">http://www.deeplearningbook.org/</a></li>
+<li><a href="http://cs229.stanford.edu/materials/ML-advice.pdf">http://cs229.stanford.edu/materials/ML-advice.pdf</a></li>
+<li><a href="http://cs231n.github.io">http://cs231n.github.io</a></li>
+</ul>
+<h1 id="Reading">Reading<a class="anchor-link" href="#Reading">&#182;</a></h1><ul>
+<li><a href="http://blog.dennybritz.com/2017/01/17/engineering-is-the-bottleneck-in-deep-learning-research/">http://blog.dennybritz.com/2017/01/17/engineering-is-the-bottleneck-in-deep-learning-research/</a></li>
+<li><a href="https://developers.google.com/machine-learning/rules-of-ml/">https://developers.google.com/machine-learning/rules-of-ml/</a></li>
+<li><a href="https://becominghuman.ai/cheat-sheets-for-ai-neural-networks-machine-learning-deep-learning-big-data-678c51b4b463">https://becominghuman.ai/cheat-sheets-for-ai-neural-networks-machine-learning-deep-learning-big-data-678c51b4b463</a></li>
+<li><a href="http://web.mit.edu/16.070/www/lecture/big_o.pdf">http://web.mit.edu/16.070/www/lecture/big_o.pdf</a></li>
+<li><a href="https://www.tensorflow.org/versions/r1.0/get_started/summaries_and_tensorboard">https://www.tensorflow.org/versions/r1.0/get_started/summaries_and_tensorboard</a></li>
+<li><a href="https://anvaka.github.io/rules-of-ml/">https://anvaka.github.io/rules-of-ml/</a></li>
+<li><a href="https://databricks.com/session/deep-learning-with-apache-spark-and-gpus">https://databricks.com/session/deep-learning-with-apache-spark-and-gpus</a></li>
+<li><a href="https://github.com/hussius/deeplearning-biology">deeplearning-biology</a></li>
+<li><a href="https://github.com/gokceneraslan/awesome-deepbio">awesome-deepbio</a></li>
+<li><a href="https://github.com/tensorflow/models">https://github.com/tensorflow/models</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+
+</html>
